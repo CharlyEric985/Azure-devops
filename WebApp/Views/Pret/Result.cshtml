@@ -1,0 +1,12 @@
+@{
+    ViewData["Title"] = "Résultat de la simulation";
+}
+
+<h2>Résultat de la simulation</h2>
+
+<p>Montant du prêt : @ViewBag.Montant €</p>
+<p>Taux annuel : @ViewBag.Taux %</p>
+<p>Durée : @ViewBag.Duree mois</p>
+<p><strong>Échéance mensuelle : @ViewBag.Mensualite €</strong></p>
+
+<a asp-controller="Pret" asp-action="Index">Recommencer</a>

@@ -1,0 +1,20 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '8.0.x'
+
+- script: dotnet build WebApp/WebApp.csproj
+  displayName: 'Build WebApp'
+
+- script: dotnet publish WebApp/WebApp.csproj -c Release -o $(Build.ArtifactStagingDirectory)
+  displayName: 'Publish WebApp'
+
+- publish: $(Build.ArtifactStagingDirectory)
+  artifact: WebApp

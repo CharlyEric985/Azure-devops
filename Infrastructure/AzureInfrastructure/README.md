@@ -1,0 +1,1 @@
+la VM sera utilisée pour déployer l’application ASP.NET Core.
