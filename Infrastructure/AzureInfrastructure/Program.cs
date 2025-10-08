@@ -6,19 +6,20 @@ namespace AzureInfrastructure
     {
         static void Main(string[] args)
         {
-            string nomVM = "MaVM";
-            string groupeRessource = "GroupePret";
+            Console.WriteLine("===== DÉPLOIEMENT INFRASTRUCTURE =====");
+            string vmName = "VM-Pret";
+            string resourceGroup = "GroupePret";
             string region = "EastUS";
-            string tailleVM = "Standard_B1s";
-            string utilisateurAdmin = "azureuser";
+            string vmSize = "Standard_B1s";
+            string adminUser = "azureuser";
 
-            Console.WriteLine("Simulation de création d'une VM sur Azure...");
-            Console.WriteLine($"Nom de la VM : {nomVM}");
-            Console.WriteLine($"Groupe de ressources : {groupeRessource}");
+            Console.WriteLine($"Nom de la VM : {vmName}");
+            Console.WriteLine($"Groupe de ressources : {resourceGroup}");
             Console.WriteLine($"Région : {region}");
-            Console.WriteLine($"Taille VM : {tailleVM}");
-            Console.WriteLine($"Utilisateur Admin : {utilisateurAdmin}");
-            Console.WriteLine("La VM serait créée avec ces paramètres si Azure était connecté.");
+            Console.WriteLine($"Taille de la VM : {vmSize}");
+            Console.WriteLine($"Utilisateur administrateur : {adminUser}");
+            Console.WriteLine();
+            Console.WriteLine("Simulation terminée : la VM serait créée avec ces paramètres sur Azure.");
         }
     }
 }

@@ -4,17 +4,35 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-steps:
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '8.0.x'
+variables:
+  buildConfiguration: 'Release'
 
-- script: dotnet build WebApp/WebApp.csproj
-  displayName: 'Build WebApp'
+stages:
+- stage: Build
+  displayName: 'Build et publication'
+  jobs:
+  - job: Build
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: '8.x'
+    - script: dotnet restore WebApp/WebApp.csproj
+      displayName: 'Restauration des dépendances'
+    - script: dotnet build WebApp/WebApp.csproj --configuration $(buildConfiguration)
+      displayName: 'Compilation du projet'
+    - script: dotnet publish WebApp/WebApp.csproj -c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/publish
+      displayName: 'Publication du projet'
+    - publish: $(Build.ArtifactStagingDirectory)/publish
+      artifact: webapp
 
-- script: dotnet publish WebApp/WebApp.csproj -c Release -o $(Build.ArtifactStagingDirectory)
-  displayName: 'Publish WebApp'
-
-- publish: $(Build.ArtifactStagingDirectory)
-  artifact: WebApp
+- stage: Deploy
+  displayName: 'Déploiement (simulation)'
+  dependsOn: Build
+  jobs:
+  - job: Deploy
+    steps:
+    - script: |
+        echo "Simulation de déploiement de l'application Web sur la VM Azure..."
+        echo "Les fichiers publiés sont dans le dossier : $(Pipeline.Workspace)/webapp"
+      displayName: 'Déploiement simulé'

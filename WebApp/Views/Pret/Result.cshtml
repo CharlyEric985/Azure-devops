@@ -1,12 +1,42 @@
-@{
+@model List<WebApp.Models.AmortizationRow>
+
+    @{
     ViewData["Title"] = "Résultat de la simulation";
-}
+    }
 
-<h2>Résultat de la simulation</h2>
+    <h2>Résultat de la simulation</h2>
 
-<p>Montant du prêt : @ViewBag.Montant €</p>
-<p>Taux annuel : @ViewBag.Taux %</p>
-<p>Durée : @ViewBag.Duree mois</p>
-<p><strong>Échéance mensuelle : @ViewBag.Mensualite €</strong></p>
+    <p>Montant du prêt : @ViewBag.Montant €</p>
+    <p>Taux annuel : @ViewBag.Taux %</p>
+    <p>Durée : @ViewBag.Duree mois</p>
+    <p><strong>Échéance mensuelle : @ViewBag.Mensualite €</strong></p>
 
-<a asp-controller="Pret" asp-action="Index">Recommencer</a>
+    <a asp-controller="Pret" asp-action="Index">Recommencer</a>
+
+    <hr />
+
+    <h3>Tableau d'amortissement</h3>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Mois</th>
+                <th>Mensualité</th>
+                <th>Intérêts</th>
+                <th>Capital remboursé</th>
+                <th>Solde restant</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model)
+        {
+            <tr>
+                <td>@row.Mois</td>
+                <td>@row.Mensualite</td>
+                <td>@row.Interet</td>
+                <td>@row.Capital</td>
+                <td>@row.Solde</td>
+            </tr>
+        }
+        </tbody>
+    </table>
